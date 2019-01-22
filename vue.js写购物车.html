@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>购物车</title>
+<script src="js/vue.js"></script>
+</head>
+
+<body>
+	<div id = "demo">
+    	<table>
+        	<tr>
+            	<th>商品名称</th>
+                <th>价格</th>
+                <th>购买数量</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="phone in phones">
+            	<td>{{phone.name}}</td>
+                <td>{{phone.price}}</td>
+                <td>
+                	<button v-on:click="phone.num--" v-bind:disabled="phone.num <= 0">-</button>
+                    {{phone.num}}
+                    <button v-on:click="phone.num++">+</button>
+                </td>
+                <td><button v-on:click="phone.num=0">清空</button></td>
+            </tr>
+        </table>
+        <p>总价格:{{total()}}元</p>
+    </div>
+    <script>
+    	new Vue({
+			el:'#demo',
+			data:{
+				phones:[
+					{"name":"iphone","price":7999,"num":0},
+					{"name":"huawei","price":2999,"num":0},
+					{"name":"vivo","price":2988,"num":0}
+				]
+			},
+			methods:{
+				total:function(){
+					var i, allprice = 0;
+					for(i = 0;i < this.phones.length;i++)
+					{
+						allprice += this.phones[i].price*this.phones[i].num;
+					}
+					return allprice;
+				}
+			}
+		})
+    </script>
+</body>
+</html>
